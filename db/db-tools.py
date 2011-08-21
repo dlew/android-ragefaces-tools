@@ -42,9 +42,9 @@ def read_file(infile, db):
         row = c.fetchone()
         if row is None:
             print('Category listed that does not yet exist - "%s".  Enter "y" to create, anything else to cancel run.' % category)
-            yes_no = raw_input("[y/n]")
+            yes_no = raw_input("[y/n] ")
             if yes_no == 'y':
-                c.execute("INSERT INTO Categories (category) VALUES (?)", (category, ))
+                c.execute("INSERT INTO Categories (category) VALUES (?)", (category,))
                 categories[category] = c.lastrowid
                 print("IMPORTANT: BE SURE TO ADD A PRIORITY MANUALLY FOR THIS NEW CATEGORY!")
             else:
@@ -52,12 +52,19 @@ def read_file(infile, db):
         else:
             categories[category] = row[0]
 
-    # Add the faces to the db
+    # Add the faces to the db (that aren't already in there)
     faces = {}
     for row in data:
         face = row[0]
-        c.execute("INSERT INTO Faces (drawable) VALUES (?)", (face,))
-        faces[face] = c.lastrowid
+
+        # Check if it's already in the db
+        c.execute("SELECT _id FROM Faces WHERE drawable=?", (face,))
+        row = c.fetchone()
+        if row is None:
+            c.execute("INSERT INTO Faces (drawable) VALUES (?)", (face,))
+            faces[face] = c.lastrowid
+        else:
+            faces[face] = row[0]            
 
     # Link those faces to categories
     for row in data:
