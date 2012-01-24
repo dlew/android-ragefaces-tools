@@ -1,0 +1,34 @@
+This is the template email to send to potential translators when they ask if
+you need any translation help.  Make sure to replace <LANGUAGE> with the
+language they offer to help translate!
+
+-------------------------------------------------------------------------------
+
+Hey,
+
+
+Thanks for offering to help!
+
+
+The language file can be found here: https://github.com/dlew/android-ragefaces/raw/master/res/values/strings.xml
+
+
+Essentially, everything in between the <string> tags should be translated.  (Unless a <LANGUAGE> would prefer the original text - for example, some translators in the past felt that "Me Gusta" should remain thus, because it's already in Spanish.)  For example, this string:
+
+
+<string name="err_sd_not_mounted">SD card must be mounted to use Rage Faces - problem?</string>
+
+
+Would become this:
+
+
+<string name="err_sd_not_mounted">Some <LANGUAGE> text</string>
+
+
+I've left comments (in <!-- ... -->) above each string to try to clarify the usage of each string.
+
+
+Let me know if you have any questions!  Also, what name you'd like to have credited.
+
+
+-Daniel
